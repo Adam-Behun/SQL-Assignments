@@ -2,6 +2,8 @@
 
 -- Answer the following queries: (each 2 points)
 
+-- Stock and some employee tables work (no joins)
+
 /* 1. Create a query that displays the columns in the given order: Ticekr, FullName, Price*/
 
 SELECT ticker, fullname, price
@@ -198,7 +200,7 @@ ELSE 'high'
 END AS EPSLevel
 FROM Stock;
 
-/* 34 Compute the average of price column, then decide whethert price of one company is higher, lower, or average. */
+/* 34 Compute the average of price column, then decide whether price of one company is higher, lower, or average. */
 
 SELECT *,
 CASE 
@@ -208,3 +210,141 @@ WHEN Price < 659 THEN 'below average'
 ELSE 'average'
 END AS PriceComparison
 FROM Stock;
+
+
+
+/* Employee and Stock tables queries*/
+
+/*1. Display the top 5 highest paying positions*/ 
+
+SELECT * 
+FROM job
+ORDER BY max_salary DESC
+LIMIT 5;
+
+/*2. Display the top 5 highest paying positions according to the mean of max and min salary*/
+
+SELECT *, (max_salary + min_salary / 2) AS avg_salary 
+FROM job
+ORDER BY avg_salary
+LIMIT 5;
+
+/*3. Display job titles with minimum wage of $9000*/
+ 
+SELECT job_title
+FROM job
+WHERE min_salary > 9000;
+
+/*4. Display jobs where minimum wage is between 5000 and 8000*/
+
+SELECT job_title
+FROM job
+WHERE min_salary BETWEEN 5000 AND  8000;
+
+/*5. Display employees hires on 1992-12-07*/ 
+
+SELECT *
+FROM employee
+WHERE hire_date = '1992-12-07';
+
+/*6. Display employees where employee id is 101, 106, and 109*/ 
+
+SELECT * 
+FROM employee
+WHERE employee_id IN (101,106,109);
+
+/*7. Display the number of records in the stock table*/
+
+SELECT COUNT(Id)
+FROM Stock;
+
+/*8. Display the number of non-missing eps values*/
+
+SELECT COUNT(EPS) AS NonMissingEPS
+FROM Stock
+WHERE EPS NOT NULL;
+
+/*9. Display the number of different sectors*/
+
+SELECT COUNT (DISTINCT Sector) AS NumberOfSectors
+FROM Stock;
+
+/*10. Display maximum and minimum EPS values*/
+
+SELECT MAX(EPS) AS MaxEps, MIN(EPS) AS MinEPS
+FROM Stock;
+
+/*11. How many stocks are there at different sectors*/
+
+SELECT Sector, COUNT(*) AS NumOfStocks 
+FROM Stock
+GROUP BY Sector; 
+
+/*12. Display the average eps values per sector*/
+
+SELECT Sector, AVG(EPS) AS AvgEPSPerSector
+FROM Stock
+GROUP BY Sector
+ORDER BY AvgEPSPerSector DESC;
+
+/*13. Display the number employees at different departments*/
+
+SELECT COUNT(DISTINCT employee_id) AS number_of_employees
+FROM employee
+GROUP BY department_id
+ORDER BY number_of_employees DESC;
+
+/*14. Display the average salary per job_id*/
+
+SELECT AVG(salary) AS avg_salary
+FROM employee
+GROUP BY job_id
+ORDER BY avg_salary DESC;
+
+/*15. Display the job_ids and avg salaries with avg salary higher than 10000*/
+
+SELECT job_id, AVG(salary) AS avg_salary
+FROM employee
+GROUP BY job_id
+HAVING avg_salary > 10000
+ORDER BY avg_salary DESC;
+
+/*16. Display the job_ids and avg salaries with avg salary between 10000 and 20000*/
+
+SELECT job_id, AVG(salary) AS avg_salary
+FROM employee
+GROUP BY job_id
+HAVING avg_salary BETWEEN 10000 AND 20000
+ORDER BY avg_salary DESC;
+
+/*17. Display if company is in asia or not (1 or 0) */
+
+SELECT country_id, country_name,
+	CASE
+		WHEN country_name IN ('China', 'HonkKong', 'Israel', 'India', 'Japan', 'Kuwait', 'Singapore')
+			THEN 1
+		ELSE 0
+	END AS is_asia
+FROM country;	
+
+/*18. Display the job table, add a column that display the difference between max and min salary for a job, sort DESC*/
+
+SELECT *,(max_salary - min_salary) AS diff_salary
+FROM job
+ORDER BY diff_salary DESC;
+
+/*19. Display unique first names*/
+
+SELECT DISTINCT first_name 
+FROM employee;
+
+/*20. Display the number of unique first names */
+
+SELECT COUNT(DISTINCT first_name)
+FROM employee;
+
+/*21. Display departments for which salary is greater than 10000, use employee table*/
+
+SELECT department_name FROM department
+	WHERE department_id IN
+		(SELECT department_id FROM employee WHERE salary > 10000);
