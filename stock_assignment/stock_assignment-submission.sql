@@ -2,7 +2,7 @@
 
 -- Answer the following queries: (each 2 points)
 
--- Stock and some employee tables work (no joins)
+-- Stock
 
 /* 1. Create a query that displays the columns in the given order: Ticekr, FullName, Price*/
 
@@ -350,3 +350,82 @@ SELECT department_name FROM department
 		(SELECT department_id FROM employee WHERE salary > 10000);
 
 
+
+--Left join exercises
+
+/*1. Join department and location tables and display all results*/
+
+SELECT *
+FROM department AS t1
+LEFT JOIN location AS t2 ON t1.location_id = t2.location_id;
+
+/*2. Display department_id, department_name, street_address, city columns*/
+
+SELECT t1.department_id, t1.department_name, t2.street_address, t2.city
+FROM department AS t1
+LEFT JOIN location AS t2 ON t1.location_id = t2.location_id;
+
+/*3. Display all columns of department, location, and country tables*/
+
+SELECT *
+FROM department AS t1
+LEFT JOIN location AS t2 ON t1.location_id = t2.location_id
+LEFT JOIN country AS t3 ON t2.country_id = t3.country_id;
+
+/*4. Display department_id, department_name, street_address, city, country_name*/
+
+SELECT t1.department_id, t1.department_name, t2.street_address, t2.city, t3.country_name
+FROM department AS t1
+LEFT JOIN location AS t2 ON t1.location_id = t2.location_id
+LEFT JOIN country AS t3 ON t2.country_id = t3.country_id;
+
+/*5. Display all columns of the lef join of job and employee tables*/
+
+SELECT * 
+FROM employee AS t1
+LEFT JOIN job AS t2 ON t1.job_id = t2.job_id;
+
+/*6. Display employee_id, email, salary, job_title*/
+
+SELECT t1.employee_id, t1.email, t1.salary, t2.job_title
+FROM employee AS t1
+LEFT JOIN job AS t2 ON t1.job_id = t2.job_id;
+
+/*7. Display employee_id, email, salary, job_title but show salaries higher than 8000, sort DESC by salary*/
+
+SELECT t1.employee_id, t1.email, t1.salary, t2.job_title
+FROM employee AS t1
+LEFT JOIN job AS t2 ON t1.job_id = t2.job_id
+WHERE t1.salary > 8000
+ORDER BY t1.salary DESC;
+
+/*8. Left join employee, job, and department tables*/
+
+SELECT t1.employee_id, t1.email, t1.salary, t2.job_title, t3.department_name
+FROM employee AS t1
+LEFT JOIN job AS t2 ON t1.job_id = t2.job_id
+LEFT JOIN department AS t3 ON t1.department_id = t3.department_id;
+
+/*9. Modify the above query: group at the department level and calculate the number of employees, sort by number_of_employees DESC*/
+
+SELECT t3.department_name, COUNT(*) AS number_of_employees
+FROM employee AS t1
+LEFT JOIN job AS t2 ON t1.job_id = t2.job_id
+LEFT JOIN department AS t3 ON t1.department_id = t3.department_id
+GROUP BY t3.department_name
+ORDER BY number_of_employees DESC;
+
+/*10. Modify the above query: group at the job_title level, display the number of employees for each position, find the avg_salary at the position, sort DESC*/
+
+SELECT job_title, COUNT(*) AS number_of_employees, AVG(salary) AS avg_salary 
+FROM employee AS t1
+LEFT JOIN job AS t2 ON t1.job_id = t2.job_id
+GROUP BY job_title
+ORDER BY avg_salary DESC;
+
+/*11. Lef join location and country tables*/
+
+SELECT t1.location_id, t1.street_address, t1.city, t2.country_name
+FROM location AS t1
+LEFT JOIN country AS t2 ON t1.country_id = t2.country_id
+ORDER BY country_name ASC;
