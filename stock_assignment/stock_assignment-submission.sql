@@ -348,3 +348,5 @@ FROM employee;
 SELECT department_name FROM department
 	WHERE department_id IN
 		(SELECT department_id FROM employee WHERE salary > 10000);
+
+
