@@ -4,7 +4,7 @@
 
 Every assignment has a database design picture (ERD), tables-creation_data-insertion sql file, and queries. 
 
-These assignments are work in progress and many of them are updated daily. 
+## These assignments are work in progress and many of them are updated daily. 
 
 
 
