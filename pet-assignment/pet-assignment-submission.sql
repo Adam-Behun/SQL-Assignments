@@ -32,7 +32,7 @@ WHERE PetType = "Dog" AND PetBreed = "Std. Poodle";
 
 SELECT PetName, PetBreed, PetType
 FROM PET
-WHERE PetType != "Dog" AND PetType != "Fish" AND PetType != "Bird";
+WHERE PetType NOT IN ("Dog", "Fish", "Bird");
 
 --7.	Write a SQL statement to display the last name, first name and email of all owners who have an email address ending with somewhere.com. Assume that 
 --email account names can be any number of characters.
@@ -51,7 +51,6 @@ WHERE OwnerPhone IS NULL;
 
 SELECT PetName, PetBreed
 FROM PET
-GROUP BY PetName
 ORDER BY PetName;
 
 --10.	Write a SQL statement to display the name and breed of all pets sorted by PetBreed in ascending order and by PetName in descending order within PetBreed.
@@ -67,7 +66,7 @@ FROM PET;
 
 --12.	Write an SQL statement to display the last name, first name, and email of any owners of cats with the name Teddy.
 
-SELECT OwnerLastName, OwnerFirstName, OwnerEmail, PetName, PetType
+SELECT OwnerLastName, OwnerFirstName, OwnerEmail
 FROM PET_OWNER AS O JOIN PET AS P
 WHERE O.OwnerID = P.OwnerID AND P.PetType = "Cat" AND P.PetName = "Teddy";
 
@@ -81,7 +80,6 @@ WHERE PetType = "Dog";
 
 SELECT AVG(PetWeight), PetBreed
 FROM PET_WEIGHT
-WHERE PetBreed NOT NULL
 GROUP BY PetBreed;
 
 --15.	Display the last name, first name, and email of any owner of a pet that has an AverageLifeExpectancy value greater than 15
