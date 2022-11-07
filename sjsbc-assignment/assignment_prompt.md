@@ -18,3 +18,4 @@ https://github.com/Adam-Behun/SQLite-Assignments/blob/main/sjsbc-assignment/assi
     - Normalization
     - SQL origin 
  - Is it working?? 
+ - 
