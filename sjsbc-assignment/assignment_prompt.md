@@ -6,11 +6,15 @@ SJSBC is an agency that leases sailboats. It does not own the boats. Instead, SJ
 ## Restrictions:
 We at this moment will not consider fees charged to owners, no captain will be "rented," and all equipment-related issues are also put aside. In the prompt, you will see their records of boat rentals in the first week of September. Design a series of related tables, that incorporate all information in the prompt, and all tables are connected through certain foreign key connections. 
 
+## Sample data
+
+https://github.com/Adam-Behun/SQLite-Assignments/blob/main/sjsbc-assignment/assignment_sample-data.png
+
 ## Task:
 
 - Analyze the sample data
 - ### Iterations of 
-  - Create an ERD
-  - Normalization
-  - SQL origin 
-  - Is it working?? 
+    - Create an ERD
+    - Normalization
+    - SQL origin 
+ - Is it working?? 
