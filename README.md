@@ -1,3 +1,5 @@
+* Work in progress
+
 # SQL Assignments (SQLite, and mySQL)
  
 ## Fall 2022 class Managing Databases and Big Data
